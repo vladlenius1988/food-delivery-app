@@ -23,3 +23,4 @@ export const testDB = async () => {
         console.error("Unable to connect to PostgreSQL:", error);
     }
 };
+
