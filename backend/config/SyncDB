@@ -1,0 +1,11 @@
+import { sequelize } from "./config/db.js";
+import { Shop } from "./models/Shop.js";
+import { Product } from "./models/Product.js";
+import { Order } from "./models/Order.js";
+
+const syncDB = async () => {
+    await sequelize.sync({ force: true }); // force: true пересоздает таблицы
+    console.log("Tables created ✅");
+};
+
+syncDB();
