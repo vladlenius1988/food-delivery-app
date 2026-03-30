@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { testDB } from "./src/config/db.js";
 import { sequelize } from "./src/config/db.js";
 import shopRoutes from "./src/routes/shops.js";
+import productRoutes from "./src/routes/products.js";
 
 dotenv.config();
 testDB();
@@ -13,6 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/shops", shopRoutes);
+app.use("/products", productRoutes);
 
 const start = async () => {
   try {
