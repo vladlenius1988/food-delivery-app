@@ -5,6 +5,7 @@ import { testDB } from "./src/config/db.js";
 import { sequelize } from "./src/config/db.js";
 import shopRoutes from "./src/routes/shops.js";
 import productRoutes from "./src/routes/products.js";
+import orderRoutes from "./src/routes/orders.js";
 
 dotenv.config();
 testDB();
@@ -15,6 +16,7 @@ app.use(express.json());
 
 app.use("/shops", shopRoutes);
 app.use("/products", productRoutes);
+app.use("/orders", orderRoutes);
 
 const start = async () => {
   try {
