@@ -21,6 +21,7 @@ app.use("/orders", orderRoutes);
 const start = async () => {
   try {
     await sequelize.authenticate();
+    await sequelize.sync({ alter: true }); 
     console.log("DB connected");
     app.listen(process.env.PORT, () => console.log(`Server on ${process.env.PORT}`));
   } catch (error) {
