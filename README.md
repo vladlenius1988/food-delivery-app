@@ -1,5 +1,15 @@
 # Retail Food Delivery App Demo (React)
 
+## Live Demo
+
+The project is available online:
+
+- Frontend: [https://food-delivery-app-frontend-5svh.onrender.com](https://food-delivery-app-frontend-5svh.onrender.com)  
+- Backend (API): [https://food-delivery-app-b06e.onrender.com](https://food-delivery-app-b06e.onrender.com)
+
+Please note that the backend database is hosted on a free Render plan and may be reset after some time.
+
+
 ## Project Overview
 This is a React web application for a retail shop, where users can browse products, add them to a shopping cart, and place orders. The app includes a variety of products — from groceries to personal care items.
 
