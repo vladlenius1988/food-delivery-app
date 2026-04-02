@@ -14,6 +14,7 @@ type Product = {
   price: number;
   category: string;
   shopId: number;
+  imageUrl: string;
 };
 
 export default function ShopsPage() {
@@ -33,7 +34,7 @@ export default function ShopsPage() {
   const fetchShops = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:5000/shops");
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/shops`);
       setShops(res.data);
     } catch (e: any) {
       setError("Failed to load shops");
@@ -46,7 +47,7 @@ export default function ShopsPage() {
     try {
       setLoading(true);
       const res = await axios.get(
-        `http://localhost:5000/products?shopId=${shopId}`
+        `${process.env.REACT_APP_API_URL}/products?shopId=${shopId}`
       );
       setProducts(res.data);
       setSelectedShop(shopId);
@@ -117,13 +118,15 @@ export default function ShopsPage() {
   <div>{product.price} грн</div>
 
   <button
-    onClick={() =>
-      addToCart({
-        id: product.id,
-        name: product.name,
-        price: product.price
-      })
-    }
+onClick={() =>
+addToCart({
+  id: product.id,
+  name: product.name,
+  price: product.price,
+  imageUrl: product.imageUrl, 
+  quantity: 1, 
+})
+}
     style={{
       marginTop: "10px",
       padding: "5px 10px",

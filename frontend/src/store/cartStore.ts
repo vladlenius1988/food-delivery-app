@@ -1,36 +1,59 @@
-import { create } from "zustand";
+import { create, StateCreator } from 'zustand';
 
-type CartItem = {
+export interface CartItem {
   id: number;
   name: string;
   price: number;
+  imageUrl?: string;
   quantity: number;
-};
+}
 
-type CartState = {
+export interface CartState {
   items: CartItem[];
-  addToCart: (product: Omit<CartItem, "quantity">) => void;
-};
+  addToCart: (product: CartItem) => void;
+  removeFromCart: (id: number) => void;
+  decrement: (id: number) => void;
+}
 
-export const useCartStore = create<CartState>((set) => ({
+
+const cartState: StateCreator<CartState> = (set, get) => ({
   items: [],
 
-  addToCart: (product) =>
-    set((state) => {
-      const existing = state.items.find((item) => item.id === product.id);
+  addToCart: (product: CartItem) => {
+    const items: CartItem[] = get().items; 
+    const exist = items.find((i: CartItem) => i.id === product.id);
+    if (exist) {
+      set({
+        items: items.map((i: CartItem) =>
+          i.id === product.id ? { ...i, quantity: i.quantity + 1 } : i
+        )
+      });
+    } else {
+      set({ items: [...items, { ...product, quantity: 1 }] });
+    }
+  },
 
-      if (existing) {
-        return {
-          items: state.items.map((item) =>
-            item.id === product.id
-              ? { ...item, quantity: item.quantity + 1 }
-              : item
-          )
-        };
-      }
+  removeFromCart: (id: number) => {
+    set({
+      items: get().items.filter((i: CartItem) => i.id !== id)
+    });
+  },
 
-      return {
-        items: [...state.items, { ...product, quantity: 1 }]
-      };
-    })
-}));
+  decrement: (id: number) => {
+    const items: CartItem[] = get().items;
+    const item = items.find((i: CartItem) => i.id === id);
+    if (!item) return;
+
+    if (item.quantity > 1) {
+      set({
+        items: items.map((i: CartItem) =>
+          i.id === id ? { ...i, quantity: i.quantity - 1 } : i
+        )
+      });
+    } else {
+      set({ items: items.filter((i: CartItem) => i.id !== id) });
+    }
+  }
+});
+
+export const useCartStore = create<CartState>(cartState);
