@@ -75,6 +75,6 @@ npm run dev
 
 #### Usage
 
-Open your browser at http://localhost:5173 (frontend)
+Open your browser at http://localhost:5000 (frontend)
 Browse products, add them to the cart, and submit an order form
 The backend handles order submission
